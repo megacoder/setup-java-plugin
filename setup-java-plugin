@@ -1,0 +1,19 @@
+#!/bin/zsh
+
+for part in java javac javaws; do
+	sudo /usr/sbin/alternatives --install /usr/bin/${part} ${part} /usr/java/default/bin/${part} 20000
+done
+
+if $(arch) = 'x86_64'; then
+	A=amd64
+	LIB=lib64
+else
+	A=i386
+	LIB=lib
+endif
+
+sudo /usr/sbin/alternatives --install					\
+	/usr/${LIB}/mozilla/plugins/libjavaplugin.so			\
+	libjavaplugin.so						\
+	/usr/java/default/lib/${A}/libnpjp2.so				\
+	20000
